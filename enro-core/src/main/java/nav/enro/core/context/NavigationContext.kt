@@ -1,23 +1,20 @@
 package nav.enro.core.context
 
 import android.os.Bundle
-import android.view.View
-import androidx.activity.viewModels
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import nav.enro.core.*
+import nav.enro.core.NavigationDirection
+import nav.enro.core.NavigationInstruction
+import nav.enro.core.NavigationKey
 import nav.enro.core.controller.NavigationController
-import nav.enro.core.internal.handle.NavigationHandleViewModel
 import nav.enro.core.controller.navigationController
 import nav.enro.core.navigator.ActivityNavigator
 import nav.enro.core.navigator.FragmentNavigator
 import nav.enro.core.navigator.Navigator
-import java.lang.IllegalStateException
-import kotlin.reflect.KClass
+import nav.enro.core.readOpenInstruction
 
 data class ChildContainer(
     @IdRes val containerId: Int,
@@ -40,7 +37,7 @@ sealed class NavigationContext<ContextType : Any, T : NavigationKey>(
     }
 
     val key: T by lazy {
-        instruction?.navigationKey
+        instruction?.navigationKey as? T
             ?: defaultKey
             ?: throw IllegalStateException("Navigation Context's bound arguments did not contain a NavigationKey!")
     }

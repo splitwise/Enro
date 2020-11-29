@@ -69,19 +69,19 @@ fun animationsFor(
     context: NavigationContext<*, *>,
     navigationInstruction: NavigationInstruction
 ): AnimationPair {
-    if (navigationInstruction is NavigationInstruction.Open<*> && navigationInstruction.children.isNotEmpty()) {
+    if (navigationInstruction is NavigationInstruction.Open && navigationInstruction.children.isNotEmpty()) {
         return AnimationPair(0, 0)
     }
 
     return when (navigationInstruction) {
-        is NavigationInstruction.Open<*> -> animationsForOpen(context, navigationInstruction)
+        is NavigationInstruction.Open -> animationsForOpen(context, navigationInstruction)
         is NavigationInstruction.Close -> animationsForClose(context, navigationInstruction)
     }
 }
 
 private fun animationsForOpen(
     context: NavigationContext<*, *>,
-    navigationInstruction: NavigationInstruction.Open<*>
+    navigationInstruction: NavigationInstruction.Open
 ): AnimationPair {
     val theme = context.activity.theme
     val navigator = context.navigator

@@ -85,7 +85,7 @@ class NavigationController(
 
     internal fun open(
         navigationContext: NavigationContext<out Any, out NavigationKey>,
-        instruction: NavigationInstruction.Open<*>
+        instruction: NavigationInstruction.Open
     ) {
         val navigator = navigatorForKeyType(instruction.navigationKey::class)
             ?: throw IllegalStateException("Attempted to execute $instruction but could not find a valid navigator for the key type on this instruction")
@@ -107,7 +107,7 @@ class NavigationController(
                 )
             )
             is SyntheticNavigator -> (navigator.destination as SyntheticDestination<NavigationKey>)
-                .process(navigationContext, instruction as NavigationInstruction.Open<NavigationKey>)
+                .process(navigationContext, instruction)
         }
     }
 
@@ -149,7 +149,7 @@ class NavigationController(
     private fun openOverrideFor(
         fromContext: NavigationContext<out Any, *>,
         navigator: Navigator<out Any, out NavigationKey>,
-        instruction: NavigationInstruction.Open<out NavigationKey>
+        instruction: NavigationInstruction.Open
     ): Boolean {
 
         val override = overrideFor(fromContext.contextReference::class to navigator.contextType)
@@ -210,13 +210,13 @@ class NavigationController(
         return true
     }
 
-    private fun NavigationInstruction.Open<*>.setParentInstruction(
+    private fun NavigationInstruction.Open.setParentInstruction(
         parentContext: NavigationContext<*, *>,
         navigator: Navigator<out Any, out NavigationKey>
-    ): NavigationInstruction.Open<*> {
+    ): NavigationInstruction.Open {
         if (parentInstruction != null) return this
 
-        fun findCorrectParentInstructionFor(instruction: NavigationInstruction.Open<*>?): NavigationInstruction.Open<*>? {
+        fun findCorrectParentInstructionFor(instruction: NavigationInstruction.Open?): NavigationInstruction.Open? {
             if (navigator is FragmentNavigator) {
                 return instruction
             }

@@ -1,15 +1,13 @@
 package nav.enro.example
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.fragment_simple_example.*
 import nav.enro.annotations.NavigationDestination
 import nav.enro.core.*
 
@@ -35,6 +33,13 @@ class SimpleExampleFragment() : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val currentDestination =  view.findViewById<TextView>(R.id.currentDestination)
+        val launchedFrom =  view.findViewById<TextView>(R.id.launchedFrom)
+        val currentStack =  view.findViewById<TextView>(R.id.currentStack)
+        val forwardButton =  view.findViewById<View>(R.id.forwardButton)
+        val replaceButton =  view.findViewById<View>(R.id.replaceButton)
+        val replaceRootButton =  view.findViewById<View>(R.id.replaceRootButton)
+
         currentDestination.text = navigation.key.name
         launchedFrom.text = navigation.key.launchedFrom
         currentStack.text = (navigation.key.backstack +  navigation.key.name).joinToString(" -> ")

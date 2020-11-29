@@ -1,15 +1,15 @@
 package nav.enro.example.login
 
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.observe
-import nav.enro.example.core.data.UserRepository
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.login.*
 import nav.enro.annotations.NavigationDestination
-import nav.enro.core.*
+import nav.enro.core.forward
+import nav.enro.core.replaceRoot
+import nav.enro.example.core.data.UserRepository
 import nav.enro.example.core.navigation.DashboardKey
 import nav.enro.example.core.navigation.LoginErrorKey
 import nav.enro.example.core.navigation.LoginKey
@@ -27,6 +27,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
+
+        val userInput = findViewById<EditText>(R.id.userInput)
+        val loginButton = findViewById<Button>(R.id.loginButton)
 
         viewModel.observableState.observe(this) {
             if(userInput.text.toString() != it.username) {

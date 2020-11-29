@@ -14,26 +14,27 @@ import nav.enro.core.navigator.SyntheticDestination
 data class SimpleMessage(
     val title: String,
     val message: String,
-    val positiveActionInstruction: NavigationInstruction.Open<*>? = null
+    val positiveActionInstruction: NavigationInstruction.Open? = null
 ) : NavigationKey
 
 @NavigationDestination(SimpleMessage::class)
 class SimpleMessageDestination : SyntheticDestination<SimpleMessage> {
     override fun process(
         navigationContext: NavigationContext<out Any, out NavigationKey>,
-        instruction: NavigationInstruction.Open<SimpleMessage>
+        instruction: NavigationInstruction.Open
     ) {
         val activity = navigationContext.activity
+        val key = instruction.navigationKey as SimpleMessage
         AlertDialog.Builder(activity).apply {
-            setTitle(instruction.navigationKey.title)
-            setMessage(instruction.navigationKey.message)
+            setTitle(key.title)
+            setMessage(key.message)
             setNegativeButton("Close") { _, _ -> }
 
-            if(instruction.navigationKey.positiveActionInstruction != null) {
+            if(key.positiveActionInstruction != null) {
                 setPositiveButton("Launch") {_, _ ->
                     navigationContext.activity
                         .getNavigationHandle<Nothing>()
-                        .executeInstruction(instruction.navigationKey.positiveActionInstruction ?: return@setPositiveButton)
+                        .executeInstruction(key.positiveActionInstruction)
                 }
             }
 

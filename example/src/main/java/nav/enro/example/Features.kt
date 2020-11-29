@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.fragment_features.*
 import nav.enro.annotations.NavigationDestination
 import nav.enro.core.*
 
@@ -37,8 +36,8 @@ class FeaturesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+        view.findViewById<RecyclerView>(R.id.recyclerView).layoutManager = LinearLayoutManager(requireContext())
+        view.findViewById<RecyclerView>(R.id.recyclerView).adapter = adapter
 
         adapter.submitList(features)
     }
@@ -76,6 +75,19 @@ val features = listOf(
                 
                 For an example of this, look in the 'modularised-example' module in the Enro repository. 
             """.trimIndent()
+        )
+    ),
+    FeatureDescription(
+        name = "Compose support",
+        iconResource = R.drawable.ic_round_undo_24,
+        key = SimpleMessage(
+            title = "Jetpack Compose",
+            message = """
+                Enro supports destinations built using Jetpack Compose. 
+                
+                Click the 'Launch' button to try this out.
+            """.trimIndent(),
+            positiveActionInstruction = NavigationInstruction.Open(NavigationDirection.FORWARD, ComposeExampleKey())
         )
     ),
     FeatureDescription(

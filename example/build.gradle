@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "nav.enro.example"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,16 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+        useIR = true
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion '1.4.0'
+        kotlinCompilerExtensionVersion '1.0.0-alpha07'
     }
 }
 
@@ -45,6 +55,20 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.1.0'
 
     implementation 'com.google.android.material:material:1.2.0-alpha06'
+
+    implementation "androidx.compose.compiler:compiler:1.0.0-alpha07"
+    implementation 'androidx.compose.ui:ui:1.0.0-alpha07'
+    // Tooling support (Previews, etc.)
+    implementation 'androidx.ui:ui-tooling:1.0.0-alpha07'
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation 'androidx.compose.foundation:foundation:1.0.0-alpha07'
+    // Material Design
+    implementation 'androidx.compose.material:material:1.0.0-alpha07'
+    // Material design icons
+    implementation 'androidx.compose.material:material-icons-core:1.0.0-alpha07'
+    implementation 'androidx.compose.material:material-icons-extended:1.0.0-alpha07'
+    // Integration with observables
+    implementation 'androidx.compose.runtime:runtime-livedata:1.0.0-alpha07'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

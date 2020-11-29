@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import nav.enro.core.NavigationKey
 import nav.enro.core.internal.handle.NavigationHandleViewModel
 import nav.enro.core.navigator.FragmentHost
-import java.lang.IllegalStateException
 
 val NavigationContext<out Fragment, *>.fragment get() = contextReference
 val NavigationContext<*, *>.activity: FragmentActivity

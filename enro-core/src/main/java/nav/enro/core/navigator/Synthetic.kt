@@ -7,6 +7,6 @@ import nav.enro.core.context.NavigationContext
 interface SyntheticDestination<T : NavigationKey> {
     fun process(
         navigationContext: NavigationContext<out Any, out NavigationKey>,
-        instruction: NavigationInstruction.Open<T>
+        instruction: NavigationInstruction.Open
     )
 }

@@ -124,7 +124,7 @@ object DefaultFragmentExecutor : NavigationExecutor<Any, Fragment, NavigationKey
     fun createFragment(
         fragmentManager: FragmentManager,
         navigator: Navigator<*, *>,
-        instruction: NavigationInstruction.Open<*>
+        instruction: NavigationInstruction.Open
     ): Fragment {
         val fragment = fragmentManager.fragmentFactory.instantiate(
             navigator.contextType.java.classLoader!!,
@@ -140,7 +140,7 @@ object DefaultFragmentExecutor : NavigationExecutor<Any, Fragment, NavigationKey
     private fun tryExecutePendingTransitions(
         navigator: FragmentNavigator<*, *>,
         fromContext: NavigationContext<out Any, *>,
-        instruction: NavigationInstruction.Open<*>
+        instruction: NavigationInstruction.Open
     ): Boolean {
         try {
             fromContext.fragmentHostFor(instruction.navigationKey)?.fragmentManager?.executePendingTransactions()
@@ -162,7 +162,7 @@ object DefaultFragmentExecutor : NavigationExecutor<Any, Fragment, NavigationKey
 
     fun openFragmentAsActivity(
         fromContext: NavigationContext<out Any, *>,
-        instruction: NavigationInstruction.Open<*>
+        instruction: NavigationInstruction.Open
     ) {
         if(fromContext.contextReference is DialogFragment && instruction.navigationDirection == NavigationDirection.REPLACE) {
             // If we attempt to openFragmentAsActivity into a DialogFragment using the REPLACE direction,

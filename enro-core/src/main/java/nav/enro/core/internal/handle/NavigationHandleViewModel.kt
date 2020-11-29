@@ -3,20 +3,14 @@ package nav.enro.core.internal.handle
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
-import nav.enro.core.internal.addOnBackPressedListener
-import nav.enro.core.internal.onEvent
 import nav.enro.core.*
 import nav.enro.core.context.*
-import nav.enro.core.context.ActivityContext
-import nav.enro.core.context.FragmentContext
-import nav.enro.core.context.NavigationContext
-import nav.enro.core.context.leafContext
 import nav.enro.core.controller.NavigationController
+import nav.enro.core.internal.addOnBackPressedListener
 import nav.enro.core.internal.navigationHandle
-import java.lang.IllegalStateException
+import nav.enro.core.internal.onEvent
 
 internal class NavigationHandleViewModel<T : NavigationKey> : ViewModel(), NavigationHandle<T> {
 
@@ -123,7 +117,7 @@ internal class NavigationHandleViewModel<T : NavigationKey> : ViewModel(), Navig
 
         when (instruction) {
             NavigationInstruction.Close -> context.controller.close(context.leafContext())
-            is NavigationInstruction.Open<*> -> {
+            is NavigationInstruction.Open -> {
                 context.controller.open(context, instruction)
             }
         }

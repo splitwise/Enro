@@ -3,12 +3,11 @@ package nav.enro.example
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.activity_main.*
 import nav.enro.annotations.NavigationDestination
 import nav.enro.core.NavigationKey
 import nav.enro.core.navigationHandle
-import nav.enro.multistack.MultistackContainer
 import nav.enro.multistack.multistackController
 
 @Parcelize
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> mutlistack.openStack(R.id.homeContainer)
