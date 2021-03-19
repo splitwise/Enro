@@ -105,7 +105,8 @@ object DefaultFragmentExecutor : NavigationExecutor<Any, Fragment, NavigationKey
         }
 
         val animations = animationsFor(context, NavigationInstruction.Close)
-        val sameFragmentManagers = previousFragment?.parentFragmentManager == context.fragment.parentFragmentManager
+        val sameFragmentManagers = previousFragment?.isAdded == true &&
+                previousFragment.parentFragmentManager == context.fragment.parentFragmentManager
 
         context.fragment.parentFragmentManager.commitNow {
             setCustomAnimations(animations.enter, animations.exit)
