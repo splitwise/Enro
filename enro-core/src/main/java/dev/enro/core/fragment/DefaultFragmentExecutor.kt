@@ -105,22 +105,26 @@ object DefaultFragmentExecutor : NavigationExecutor<Any, Fragment, NavigationKey
         }
 
         val animations = animationsFor(context, NavigationInstruction.Close)
-        val sameFragmentManagers = previousFragment?.parentFragmentManager == context.fragment.parentFragmentManager
+        val sameFragmentManagers = previousFragment?.isAdded == true &&
+                previousFragment.parentFragmentManager == context.fragment.parentFragmentManager
 
         context.fragment.parentFragmentManager.commitNow {
             setCustomAnimations(animations.enter, animations.exit)
             remove(context.fragment)
 
-            if (previousFragment != null && sameFragmentManagers) {
-                when {
-                    previousFragment.isDetached -> attach(previousFragment)
-                    !previousFragment.isAdded -> add(context.contextReference.getContainerId(), previousFragment)
+            if (previousFragment != null) {
+                if (sameFragmentManagers) {
+                    if (previousFragment.isDetached) {
+                        attach(previousFragment)
+                    }
+                    setPrimaryNavigationFragment(previousFragment)
+                } else {
+                    add(context.contextReference.getContainerId(), previousFragment)
                 }
             }
-            if(sameFragmentManagers) setPrimaryNavigationFragment(previousFragment)
         }
 
-        if(previousFragment != null && !sameFragmentManagers) {
+        if(previousFragment?.isAdded == true && !sameFragmentManagers) {
             previousFragment.parentFragmentManager.commitNow {
                 setPrimaryNavigationFragment(previousFragment)
             }
