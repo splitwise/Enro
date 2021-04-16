@@ -7,6 +7,7 @@ import javax.annotation.Generated
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.Element
+import javax.lang.model.element.ElementKind
 
 abstract class BaseProcessor : AbstractProcessor() {
 
@@ -15,8 +16,9 @@ abstract class BaseProcessor : AbstractProcessor() {
     }
 
     internal fun Element.extends(className: ClassName): Boolean {
+        if (kind != ElementKind.CLASS) return false
         val typeMirror = className.asElement().asType()
-        return processingEnv.typeUtils.isSubtype(asType(), typeMirror)
+        return processingEnv.typeUtils.isAssignable(asType(), typeMirror)
     }
 
     internal fun Element.implements(className: ClassName): Boolean {
