@@ -33,6 +33,17 @@ class SimpleExampleFragment() : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var embeddedFragment = childFragmentManager.findFragmentById(R.id.embeddedFragment)
+        if (embeddedFragment == null) {
+            val key = EmbeddedKey(navigation.key.name, navigation.key.launchedFrom, navigation.key.backstack)
+            val instruction = NavigationInstruction.Replace(navigationKey = key)
+            embeddedFragment = EmbeddedFragment()
+            embeddedFragment.addOpenInstruction(instruction)
+            childFragmentManager.beginTransaction()
+                .add(R.id.embeddedFragment, embeddedFragment, tag)
+                .commit()
+        }
+
         FragmentSimpleExampleBinding.bind(view).apply {
             currentDestination.text = navigation.key.name
             launchedFrom.text = navigation.key.launchedFrom

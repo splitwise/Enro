@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#FFFFFFFF"
     android:padding="16dp">
 
@@ -107,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/embeddedFragment"
         app:layout_constraintEnd_toStartOf="@id/replaceButton"
         android:text="Forward"/>
 
@@ -118,7 +119,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/forwardButton"
         app:layout_constraintEnd_toStartOf="@+id/replaceRootButton"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/embeddedFragment"
         android:text="Replace"/>
 
     <Button
@@ -127,8 +128,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/replaceButton"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/embeddedFragment"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Replace Root"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        tools:context="dev.enro.example.EmbeddedFragment"
+        android:id="@+id/embeddedFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
